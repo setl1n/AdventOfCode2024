@@ -38,7 +38,6 @@ public class Day4 {
             }
             input[i] = line;
         }
-        // System.out.println(Arrays.deepToString(input));
         for (int i = 0; i < numLines; i++) {
             for (int j = 0; j < lineLength; j++) {
                 count += getNumOfOccurrence(input, i, j);
@@ -51,13 +50,9 @@ public class Day4 {
         if (input[i][j] != 'X') {
             return 0;
         }
-        // System.out.println("X found at i: " + i + " j: " + j);
         int count = 0;
         for (int k = -1; k < 2; k++) {
             for (int k2 = -1; k2 < 2; k2++) {
-                // if (k == 0 && k2 ==0) {
-                // continue;
-                // }
                 count += searchAlong(input, i, j, k, k2, 'M');
             }
         }
@@ -65,8 +60,6 @@ public class Day4 {
     }
 
     private static int searchAlong(char[][] input, int i, int j, int dirX, int dirY, char toSearch) {
-        // System.out.println("Searching >" + toSearch + "< at i: >" + i + "< j: >" + j
-        // + "<");
         int numLines = input.length;
         int lineLength = input[0].length;
         if (i + dirX < 0 || i + dirX >= lineLength) {
