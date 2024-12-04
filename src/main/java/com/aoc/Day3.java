@@ -11,14 +11,15 @@ public class Day3 {
     public static void main(String[] args) {
         try {
             List<String> sample = Files.readAllLines(Paths.get("src/main/resources/day3/sample.txt"));
+            List<String> sample2 = Files.readAllLines(Paths.get("src/main/resources/day3/sample2.txt"));
             List<String> input = Files.readAllLines(Paths.get("src/main/resources/day3/input.txt"));
 
             System.out.println();
             System.out.println("Part 1 Answer (example): " + solvePart1(sample));
             System.out.println("Part 1 Answer: " + solvePart1(input));
             System.out.println();
-            // System.out.println("Part 2 Answer (example): " + solvePart2(sample));
-            // System.out.println("Part 2 Answer: " + solvePart2(input));
+            System.out.println("Part 2 Answer (example): " + solvePart2(sample2));
+            System.out.println("Part 2 Answer: " + solvePart2(input));
         } catch (IOException e) {
             System.err.println("Error reading input file: " + e.getMessage());
         }
@@ -30,18 +31,27 @@ public class Day3 {
         Pattern pattern = Pattern.compile("mul\\(([0-9]{1,3}),([0-9]{1,3})\\)");
         Matcher matcher = pattern.matcher(inputLine);
         while (matcher.find()) {
-            System.out.println(matcher.group());
-            System.out.println(matcher.group(1));
-            System.out.println(matcher.group(2));
-            System.out.println("before:" + sum);
             sum += Integer.parseInt(matcher.group(1)) * Integer.parseInt(matcher.group(2));
-            System.out.println("after:" + sum);
         }
         return sum;
     }
 
     private static long solvePart2(List<String> data) {
-        int count = 0;
-        return count;
+        long sum = 0;
+        String inputLine = data.get(0);
+        Pattern pattern = Pattern.compile("(do\\(\\)|don\\'t\\(\\))|(mul\\(([0-9]{1,3}),([0-9]{1,3})\\))");
+        Matcher matcher = pattern.matcher(inputLine);
+        boolean flag = true;
+        while (matcher.find()) {
+            if (matcher.group().equals("don't()")) {
+                flag = false;
+            } else if (matcher.group().equals("do()")) {
+                flag = true;
+            } else {
+                if (flag)
+                sum += Integer.parseInt(matcher.group(3)) * Integer.parseInt(matcher.group(4));
+            }
+        }
+        return sum;
     }
 }
