@@ -25,8 +25,7 @@ public class Day4 {
         }
     }
 
-    private static long solvePart1(List<String> data) {
-        int count = 0;
+    private static char[][] convertToArr(List<String> data) {
         int numLines = data.size();
         int lineLength = data.get(0).length();
         char[][] input = new char[numLines][];
@@ -38,6 +37,14 @@ public class Day4 {
             }
             input[i] = line;
         }
+        return input;
+    }
+
+    private static long solvePart1(List<String> data) {
+        int count = 0;
+        int numLines = data.size();
+        int lineLength = data.get(0).length();
+        char[][] input = convertToArr(data);
         for (int i = 0; i < numLines; i++) {
             for (int j = 0; j < lineLength; j++) {
                 count += getNumOfOccurrence(input, i, j);
@@ -86,16 +93,7 @@ public class Day4 {
         int count = 0;
         int numLines = data.size();
         int lineLength = data.get(0).length();
-        char[][] input = new char[numLines][];
-        for (int i = 0; i < numLines; i++) {
-            String lineStr = data.get(i);
-            char[] line = new char[lineLength];
-            for (int j = 0; j < lineLength; j++) {
-                line[j] = lineStr.charAt(j);
-            }
-            input[i] = line;
-        }
-        // System.out.println(Arrays.deepToString(input));
+        char[][] input = convertToArr(data);
         for (int i = 0; i < numLines; i++) {
             for (int j = 0; j < lineLength; j++) {
                 if (input[i][j] == 'A') {
@@ -115,9 +113,13 @@ public class Day4 {
         if (j == 0 || j == input.length - 1) {
             return false;
         }
-        return (input[i-1][j-1] == 'M' && input[i+1][j-1] == 'M' && input[i-1][j+1] == 'S' && input[i+1][j+1] =='S') 
-                || input[i-1][j-1] == 'M' && input[i-1][j+1] == 'M' && input[i+1][j-1] == 'S' && input[i+1][j+1] =='S'
-                || input[i+1][j+1] == 'M' && input[i+1][j-1] == 'M' && input[i-1][j+1] == 'S' && input[i-1][j-1] =='S'
-                || input[i+1][j+1] == 'M' && input[i-1][j+1] == 'M' && input[i+1][j-1] == 'S' && input[i-1][j-1] =='S';
+        return (input[i - 1][j - 1] == 'M' && input[i + 1][j - 1] == 'M' && input[i - 1][j + 1] == 'S'
+                && input[i + 1][j + 1] == 'S')
+                || input[i - 1][j - 1] == 'M' && input[i - 1][j + 1] == 'M' && input[i + 1][j - 1] == 'S'
+                        && input[i + 1][j + 1] == 'S'
+                || input[i + 1][j + 1] == 'M' && input[i + 1][j - 1] == 'M' && input[i - 1][j + 1] == 'S'
+                        && input[i - 1][j - 1] == 'S'
+                || input[i + 1][j + 1] == 'M' && input[i - 1][j + 1] == 'M' && input[i + 1][j - 1] == 'S'
+                        && input[i - 1][j - 1] == 'S';
     }
 }
