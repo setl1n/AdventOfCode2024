@@ -53,11 +53,6 @@ public class Day5 {
         return true;
     }
 
-    private static int getMiddlePage(String string) {
-        String[] pages = string.split(",");
-        return Integer.parseInt(pages[pages.length / 2]);
-    }
-
     private static long solvePart1(String data) {
         int sum = 0;
         HashMap<Integer,HashSet<Integer>> rules = new HashMap<>();
@@ -69,7 +64,7 @@ public class Day5 {
                 pages.add(Integer.parseInt(page));
             }
             if (isValidOrder(pages, rules)) {
-                sum += getMiddlePage(string);
+                sum += pages.get(pages.size() / 2);
             }
         }
         return sum;
