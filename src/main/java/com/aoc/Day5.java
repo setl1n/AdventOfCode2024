@@ -40,10 +40,9 @@ public class Day5 {
         }
     }
     
-    private static boolean isValidOrder(String line, HashMap<Integer,HashSet<Integer>> rules) {
+    private static boolean isValidOrder(List<Integer> pages, HashMap<Integer,HashSet<Integer>> rules) {
         List<Integer> occurredBefore = new ArrayList<Integer>();
-        for (String num : line.split(",")) {
-            int curr = Integer.parseInt(num);
+        for (Integer curr : pages) {
             for (Integer prevInt : occurredBefore) {
                 if (rules.getOrDefault(curr, new HashSet<>()).contains(prevInt)) {
                     return false;
@@ -65,7 +64,11 @@ public class Day5 {
         List<String> lines = new ArrayList<>();
         processInput(data, rules, lines);
         for (String string : lines) {
-            if (isValidOrder(string, rules)) {
+            List<Integer> pages = new ArrayList<>();
+            for (String page : string.split(",")) {
+                pages.add(Integer.parseInt(page));
+            }
+            if (isValidOrder(pages, rules)) {
                 sum += getMiddlePage(string);
             }
         }
